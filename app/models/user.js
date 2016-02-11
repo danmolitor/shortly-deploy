@@ -1,3 +1,24 @@
+var db = require('../config.js');
+var mongoose = require('mongoose');
+
+//Schema creation
+var userSchema = mongoose.Schema({
+  username: String,
+  password: String
+});
+
+
+//Creating the model
+var User = mongoose.model('User', userSchema);
+
+
+
+//Instantiating
+var Gordon = new User({name: "Gordon"})
+
+
+
+
 var db = require('../config');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
