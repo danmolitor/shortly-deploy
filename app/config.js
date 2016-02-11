@@ -2,6 +2,7 @@
 var path = require('path');
 var mongoose = require('mongoose');
 
+// TODO: see https://devcenter.heroku.com/articles/nodejs-mongoose#initializing-and-connecting
 var db = mongoose.createConnection('mongodb://localhost/shortly');
 
 module.exports = db;
