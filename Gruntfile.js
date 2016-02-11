@@ -35,6 +35,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
         // Add filespec list here
+        'public/**/*.js'
       ],
       options: {
         force: 'true',
@@ -68,6 +69,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push heroku master'
       }
     },
   });
@@ -99,6 +101,7 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'jshint',
     'mochaTest'
   ]);
 
@@ -110,6 +113,7 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run(['shell']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -117,6 +121,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
+    grunt.task.run(['test']),
+    grunt.task.run(['build']),
+    grunt.task.run(['upload'])
   ]);
-
 };
