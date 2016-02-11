@@ -70,6 +70,11 @@ module.exports = function(grunt) {
     shell: {
       prodServer: {
         command: 'git push heroku master'
+        // options: {
+        //   stdout: true,
+        //   stderr: true,
+        //   failOnError: true
+        // }
       }
     },
   });
@@ -82,6 +87,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+
+  // grunt.registerTask('heroku:production', [
+  //     'build'
+  //   ]);
 
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
@@ -100,6 +109,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
+
   grunt.registerTask('test', [
     'jshint',
     'mochaTest'
@@ -110,10 +120,14 @@ module.exports = function(grunt) {
     'uglify'
   ]);
 
+  // grunt.registerTask('doshit', [
+  //   'shell'
+  // ]);
+
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
-      grunt.task.run(['shell']);
+      grunt.task.run(['shell:prodServer']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -121,8 +135,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     // add your deploy tasks here
-    grunt.task.run(['test']),
-    grunt.task.run(['build']),
-    grunt.task.run(['upload'])
+    'test',
+    'build',
+    'upload'
   ]);
 };
