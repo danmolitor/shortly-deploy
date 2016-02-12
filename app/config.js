@@ -8,6 +8,4 @@ mongoose.connect(uristring);
 
 var db = mongoose.connection;
 
-// var db = mongoose.createConnection(uristring);
-
 module.exports = db;
